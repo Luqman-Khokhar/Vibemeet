@@ -5,14 +5,22 @@
   "description": "Gesture-triggered effects and transitions for Google Meet.",
   "content_scripts": [
     {
-      "matches": ["https://meet.google.com/*"],
-      "js": ["bridge.js"],
+      "matches": [
+        "https://meet.google.com/*"
+      ],
+      "js": [
+        "bridge.js"
+      ],
       "run_at": "document_start",
       "all_frames": true
     },
     {
-      "matches": ["https://meet.google.com/*"],
-      "js": ["inject.js"],
+      "matches": [
+        "https://meet.google.com/*"
+      ],
+      "js": [
+        "inject.js"
+      ],
       "run_at": "document_start",
       "world": "MAIN",
       "all_frames": true
@@ -20,8 +28,18 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["mediapipe/*", "models/*"],
-      "matches": ["https://meet.google.com/*"]
+      "resources": [
+        "vision-host.html",
+        "vision-host.js",
+        "mediapipe/*",
+        "models/*"
+      ],
+      "matches": [
+        "https://meet.google.com/*"
+      ]
     }
-  ]
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
+  }
 }

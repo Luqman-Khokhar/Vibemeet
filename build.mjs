@@ -12,7 +12,7 @@ cpSync('node_modules/@mediapipe/tasks-vision/wasm', 'dist/mediapipe/wasm', { rec
 cpSync('models', 'dist/models', { recursive: true });
 
 const options = {
-  entryPoints: { inject: 'src/inject.ts', bridge: 'src/bridge.ts' },
+  entryPoints: { inject: 'src/inject.ts', bridge: 'src/bridge.ts', 'vision-host': 'src/vision-host.ts' },
   outdir: 'dist',
   bundle: true,
   format: 'iife',

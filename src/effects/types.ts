@@ -1,4 +1,4 @@
-import type { VisionResult } from '../core/vision';
+import type { VisionResult } from '../core/vision-types';
 
 export interface FrameContext {
   video: HTMLVideoElement;

@@ -1,5 +1,5 @@
 import type { Effect, FrameContext } from '../effects/types';
-import type { Vision } from './vision';
+import type { Vision } from './vision-types';
 
 const FPS = 30;
 
@@ -19,7 +19,7 @@ export function processStream(
   video.muted = true;
   video.playsInline = true;
   video.srcObject = new MediaStream([track]);
-  void video.play();
+  video.play().catch(() => {}); // AbortError when Meet stops the track and reloads the element
 
   const canvas = document.createElement('canvas');
   canvas.width = width;
