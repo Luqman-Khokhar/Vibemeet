@@ -6,10 +6,22 @@
   "content_scripts": [
     {
       "matches": ["https://meet.google.com/*"],
+      "js": ["bridge.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": ["https://meet.google.com/*"],
       "js": ["inject.js"],
       "run_at": "document_start",
       "world": "MAIN",
       "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["mediapipe/*", "models/*"],
+      "matches": ["https://meet.google.com/*"]
     }
   ]
 }

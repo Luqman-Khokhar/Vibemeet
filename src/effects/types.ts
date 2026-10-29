@@ -1,9 +1,12 @@
+import type { VisionResult } from '../core/vision';
+
 export interface FrameContext {
   video: HTMLVideoElement;
   ctx: CanvasRenderingContext2D;
   width: number;
   height: number;
   now: number;
+  vision: VisionResult | null;
 }
 
 export interface Effect {

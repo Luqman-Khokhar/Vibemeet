@@ -1,8 +1,13 @@
 import type { Effect, FrameContext } from '../effects/types';
+import type { Vision } from './vision';
 
 const FPS = 30;
 
-export function processStream(source: MediaStream, effects: Effect[] = []): MediaStream {
+export function processStream(
+  source: MediaStream,
+  effects: Effect[] = [],
+  visionPromise: Promise<Vision> | null = null,
+): MediaStream {
   const [track] = source.getVideoTracks();
   if (!track) return source;
 
@@ -21,11 +26,15 @@ export function processStream(source: MediaStream, effects: Effect[] = []): Medi
   canvas.height = height;
   const ctx = canvas.getContext('2d', { alpha: false })!;
 
-  const frame: FrameContext = { video, ctx, width, height, now: 0 };
+  const frame: FrameContext = { video, ctx, width, height, now: 0, vision: null };
+
+  let vision: Vision | null = null;
+  visionPromise?.then((v) => (vision = v)).catch((err) => console.error('[vibemeet] vision init failed', err));
 
   const draw = (now: number) => {
     frame.now = now;
     ctx.drawImage(video, 0, 0, width, height);
+    frame.vision = vision ? vision.detect(video, now) : null;
     for (const effect of effects) effect.render(frame);
   };
 
